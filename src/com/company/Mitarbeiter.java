@@ -4,43 +4,47 @@ import com.sun.source.tree.BreakTree;
 
 public class Mitarbeiter {
 
-    String vorname;
-    String nachname;
+    String vorname = "Hansi";
+    String nachname = "Mayer";
     double gehalt;
-    int alter;
 
 
     public double monatsAbrechnung() {
-
-
-        double erg = gehalt * 12;
+        
+       double erg = gehalt * 12;
         // Wenn man z.B. 20 % abziehen soll, kann man statt erg = erg - (erg * (20/100));
-        erg = erg * (80 / 100);
 
-        if (gehalt < 10000) {
-            gehalt = erg - (gehalt * (10 / 100));
-        } else if (gehalt > 10000 && gehalt < 20000) {
-            erg = gehalt - (gehalt * (20 / 100));
-        } else if (gehalt > 20000 && gehalt < 30000) {
-            erg = gehalt - (gehalt * (32 / 100));
-        } else if (gehalt > 30000 && gehalt < 50000) {
-            erg = gehalt - (gehalt * (45 / 100));
-        } else if (gehalt > 50.001) {
-            erg = gehalt - (gehalt * (60 / 100));
+        double einkommensStr = 0;
+        double nochZuVersteuern;
+        double versErg = erg * 0.8;
+        nochZuVersteuern = versErg;
+
+        if ( nochZuVersteuern >= 50001) {
+            einkommensStr = (nochZuVersteuern - ((nochZuVersteuern - 50000) * 0.6) - (20000 * 0.45) - (10000 * 0.32) - (10000 * 0.2) - (10000 * 0.1));
+        } else if (nochZuVersteuern > 30000 && nochZuVersteuern < 50000) {
+            einkommensStr = ((nochZuVersteuern - (nochZuVersteuern - 30000) * 0.45) - (10000 * 0.32) - (10000 * 0.2) - (10000 * 0.1));
+        } else if (nochZuVersteuern > 20000 && nochZuVersteuern < 30000) {
+            einkommensStr = (nochZuVersteuern - (nochZuVersteuern - 20000) * 0.32) - (10000 * 0.2) - (10000 * 0.1);
+        } else if (nochZuVersteuern > 10000 && nochZuVersteuern < 20000) {
+            einkommensStr = (nochZuVersteuern  - ((nochZuVersteuern - 10000)* 0.2) - (10000 * 0.1));
+        } else if (nochZuVersteuern <= 10000) {
+            einkommensStr = (nochZuVersteuern - (nochZuVersteuern * 0.1));
         }
-        return erg;
+        return einkommensStr;
     }
 
+   
     public static void main(String[] args) {
 
         Mitarbeiter Peter = new Mitarbeiter();
 
         Peter.vorname = "Peter";
         Peter.nachname = "Lech";
-        Peter.gehalt = 45366;
+        Peter.gehalt = 2333.33;
 
         //System.out.println(Peter.monatsAbrechnung(34255.0));
 
-        System.out.println(Peter.monatsAbrechnung());
+        System.out.println(Peter.monatsAbrechnung()/12);
+
     }
 }
